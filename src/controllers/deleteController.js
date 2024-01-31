@@ -26,5 +26,4 @@ const deleteEntry = async (req, res) => {
   }
 };
 
-
 module.exports = { deleteEntry };
