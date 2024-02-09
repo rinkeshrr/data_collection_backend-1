@@ -1,5 +1,5 @@
 // updateController.js
-const Employee = require('../models/employeeModel');
+const Device = require('../models/deviceModel');
 // const exceljs = require('exceljs');
 // const path = require('path');
 
@@ -10,19 +10,18 @@ const updateDetails = async (req, res) => {
 
   try {
     // Find the employee in MongoDB
-    const employee = await Employee.findOne({ employeeId: id });
+    const device = await Device.findOne({ _id: id });
 
-    if (employee) {
+    if (device) {
       // Update the employee details
-      employee.name = updatedDetails.name;
-      employee.laptopModel = updatedDetails.laptopModel;
-      employee.macAddress = updatedDetails.macAddress;
-      employee.lastUpdatedDate = new Date().toLocaleString().replace(/,/g, '');
-      employee.status = 'active';
-      employee.password = updatedDetails.password;
+      device.deviceName = updatedDetails.deviceName;
+      device.employeeId = updatedDetails.employeeId;
+      device.deviceModel = updatedDetails.deviceModel;
+      device.operatingSystem = updatedDetails.operatingSystem;
+      device.macAddress = updatedDetails.macAddress;
+      device.updateDate = new Date().toLocaleString().replace(/,/g, '');
 
-      // Save the changes
-      await employee.save();
+      await device.save();
 
       console.log('Employee details updated in MongoDB');
       res.status(200).send('Employee details updated successfully');

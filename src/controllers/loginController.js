@@ -1,5 +1,6 @@
 // loginController.js
-const Employee = require('../models/employeeModel');
+// const Employee = require('../models/employeeModel');
+const User = require('../models/userModel');
 // const exceljs = require('exceljs');
 // const path = require('path');
 
@@ -9,9 +10,9 @@ const login = async (req, res) => {
 
   try {
     // Check if there is an employee with the specified Employee ID and password
-    const existingEmployee = await Employee.findOne({ employeeId, password });
+    const existingUser = await User.findOne({ employeeId, password });
 
-    if (existingEmployee) {
+    if (existingUser) {
       console.log('User successfully logged in');
       res.status(200).send('User logged in successfully');
     } else {

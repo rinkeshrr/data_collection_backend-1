@@ -1,5 +1,5 @@
 // detailsController.js
-const Employee = require('../models/employeeModel');
+const Device = require('../models/deviceModel');
 // const exceljs = require('exceljs');
 // const path = require('path');
 
@@ -9,19 +9,24 @@ const getDetails = async (req, res) => {
 
   try {
     // Retrieve employee details from MongoDB
-    const employee = await Employee.findOne({ employeeId: id });
+    const devices = await Device.find({ employeeId: id,  isDeleted: 'N' });
+    const details = [];
 
-    if (employee) {
-      const details = {
-        name: employee.name,
-        employeeId: employee.employeeId,
-        laptopModel: employee.laptopModel,
-        macAddress: employee.macAddress,
-        registrationDate: employee.createDate,
-        lastUpdatedDate: employee.updateDate,
-        status: employee.status,
-        password: employee.password
-      };
+    if (devices) {
+      devices.forEach(element => {
+        const deviceDetails = {
+          objectId : element._id,
+          deviceName: element.deviceName,
+          employeeId: element.employeeId,
+          deviceModel: element.deviceModel,
+          operatingSystem: element.operatingSystem,
+          macAddress: element.macAddress,
+          registrationDate: element.createDate,
+          lastUpdatedDate: element.updateDate,
+          status: element.isActive
+        };
+        details.push(deviceDetails);
+      });
       
       res.status(200).send(details);
     } else {

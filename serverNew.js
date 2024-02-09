@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 require('./src/db/mongoose');
 
 app.use(bodyParser.json());
@@ -30,16 +30,18 @@ if (!fs.existsSync(filePath)) {
 const registerRoute = require('./src/routes/register');
 const loginRoute = require('./src/routes/login');
 const detailsRoute = require('./src/routes/details');
+const detailRoute = require('./src/routes/detail');
 const updateRoute = require('./src/routes/update');
 const toggleStatusRoute = require('./src/routes/toggleStatus');
 const deleteRoute = require('./src/routes/delete');
 
-app.use('/api/register', registerRoute);
+app.use('/api/device-register', registerRoute);
 app.use('/api/login', loginRoute);
-app.use('/api/details', detailsRoute);
-app.use('/api/update', updateRoute);
+app.use('/api/device-details', detailsRoute);
+app.use('/api/device-detail', detailRoute);
+app.use('/api/device-update', updateRoute);
 app.use('/api/toggle-status', toggleStatusRoute);
-app.use('/api/delete', deleteRoute);
+app.use('/api/device-delete', deleteRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

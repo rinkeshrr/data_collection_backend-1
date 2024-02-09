@@ -1,5 +1,5 @@
 // deleteController.js
-const Employee = require('../models/employeeModel');
+const Device = require('../models/deviceModel');
 // const exceljs = require('exceljs');
 // const path = require('path');
 
@@ -10,11 +10,13 @@ const deleteEntry = async (req, res) => {
 
   try {
     // Find the employee in MongoDB
-    const employee = await Employee.findOne({ employeeId: id });
+    const device = await Device.findOne({ _id: id });
 
-    if (employee) {
+    if (device) {
       // Delete the employee
-      await employee.deleteOne();
+      device.isActive = 'N';
+      device.isDeleted = 'Y';
+      await device.save();
       console.log('Employee entry deleted from MongoDB');
       res.status(200).send('Employee entry deleted successfully');
     } else {
